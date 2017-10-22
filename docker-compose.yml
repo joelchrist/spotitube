@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+  db:
+    image: mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: test1234
+    volumes:
+      - "./mysql_data:/var/lib/mysql"
+  tomee:
+    image: tomee
+    restart: always
+    links:
+      - "db:db"
+    depends_on:
+      - "db"
+    ports:
+      - "8080:8080"
+      - "9000:8000" #Debug
+    environment:
+      - "JPDA_ADDRESS=8000"
+      - "JPDA_TRANSPORT=dt_socket"
+    volumes:
+      - "./target/spotitube.war:/usr/local/tomee/webapps/spotitube.war"
+    command: ["catalina.sh", "jpda", "run"]
