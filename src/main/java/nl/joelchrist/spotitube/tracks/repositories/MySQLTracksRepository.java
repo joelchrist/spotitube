@@ -1,7 +1,6 @@
 package nl.joelchrist.spotitube.tracks.repositories;
 
 import nl.joelchrist.spotitube.dao.Repository;
-import nl.joelchrist.spotitube.tracks.domain.Album;
 import nl.joelchrist.spotitube.tracks.domain.Track;
 
 import java.sql.Connection;
@@ -21,7 +20,7 @@ public class MySQLTracksRepository extends Repository implements TracksRepositor
         super();
     }
 
-    public List<Track> getTracks() {
+    public List<Track> findAll() {
         List<Track> result = new ArrayList<>();
         try {
             Connection connection = getConnection();
@@ -33,6 +32,8 @@ public class MySQLTracksRepository extends Repository implements TracksRepositor
             }
             return result;
         } catch (SQLException e) {
+            logger.warning("Failed to get all tracks from database");
+            e.printStackTrace();
             return new ArrayList<>();
         }
     }
@@ -42,8 +43,12 @@ public class MySQLTracksRepository extends Repository implements TracksRepositor
         String title = resultSet.getString("title");
         String performer = resultSet.getString("performer");
         Integer duration = resultSet.getInt("duration");
-        //TODO: Actually get album
-        Album album = new Album(0, new Date(), "desc", false);
-        return new Track(id, title, performer, duration, album);
+        String album = resultSet.getString("album");
+        Integer playCount = resultSet.getInt("play_count");
+        Date publicationDate = resultSet.getDate("publication_date");
+        String description = resultSet.getString("description");
+        Boolean offlineAvailable = resultSet.getBoolean("offline_available");
+
+        return new Track(id, title, performer, duration, album, playCount, publicationDate, description, offlineAvailable);
     }
 }

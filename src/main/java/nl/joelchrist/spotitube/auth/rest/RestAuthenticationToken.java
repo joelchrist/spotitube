@@ -1,17 +1,10 @@
-package nl.joelchrist.spotitube.auth.domain;
+package nl.joelchrist.spotitube.auth.rest;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement
-public class LoginResponse {
+public class RestAuthenticationToken {
     private String user;
     private String token;
 
-    public LoginResponse() {
-        //Empty constructor needed for Jax-RS Serialization
-    }
-
-    public LoginResponse(String user, String token) {
+    public RestAuthenticationToken(String user, String token) {
         this.user = user;
         this.token = token;
     }

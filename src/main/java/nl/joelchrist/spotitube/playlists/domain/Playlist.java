@@ -7,8 +7,11 @@ import java.util.List;
 public class Playlist {
     private Integer id;
     private String name;
-    private Boolean owner;
+    private String owner;
     private List<Track> tracks;
+
+    public Playlist() {
+    }
 
     public Playlist(List<Track> tracks) {
         this.tracks = tracks;
@@ -30,11 +33,11 @@ public class Playlist {
         this.name = name;
     }
 
-    public Boolean getOwner() {
+    public String getOwner() {
         return owner;
     }
 
-    public void setOwner(Boolean owner) {
+    public void setOwner(String owner) {
         this.owner = owner;
     }
 

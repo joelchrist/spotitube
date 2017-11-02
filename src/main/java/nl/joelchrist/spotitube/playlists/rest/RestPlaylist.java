@@ -1,18 +1,18 @@
-package nl.joelchrist.spotitube.playlists.domain.rest;
+package nl.joelchrist.spotitube.playlists.rest;
 
 import nl.joelchrist.spotitube.playlists.domain.Playlist;
 import nl.joelchrist.spotitube.tracks.domain.Track;
 
 import java.util.List;
 
-public class RestPlaylistResponse {
+public class RestPlaylist {
     private List<Playlist> playlists;
     private Integer playListLength;
 
-    public RestPlaylistResponse() {
+    public RestPlaylist() {
     }
 
-    public RestPlaylistResponse(List<Playlist> playlists) {
+    public RestPlaylist(List<Playlist> playlists) {
         this.playlists = playlists;
         this.playListLength = playlists.stream().map(Playlist::getTracks).reduce((tracks, tracks2) -> {
             tracks.addAll(tracks2);

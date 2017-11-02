@@ -1,22 +1,20 @@
-package nl.joelchrist.spotitube.tracks.domain;
+package nl.joelchrist.spotitube.tracks.rest;
 
-import java.util.Date;
 
-public class Track {
+import java.sql.Date;
+
+public class RestTrack {
     private Integer id;
     private String title;
     private String performer;
     private Integer duration;
     private String album;
     private Integer playCount;
-    private Date publicationDate;
+    private String publicationDate;
     private String description;
     private Boolean offlineAvailable;
 
-    public Track() {
-    }
-
-    public Track(Integer id, String title, String performer, Integer duration, String album, Integer playCount, Date publicationDate, String description, Boolean offlineAvailable) {
+    public RestTrack(Integer id, String title, String performer, Integer duration, String album, Integer playCount, String publicationDate, String description, Boolean offlineAvailable) {
         this.id = id;
         this.title = title;
         this.performer = performer;
@@ -76,11 +74,11 @@ public class Track {
         this.playCount = playCount;
     }
 
-    public Date getPublicationDate() {
+    public String getPublicationDate() {
         return publicationDate;
     }
 
-    public void setPublicationDate(Date publicationDate) {
+    public void setPublicationDate(String publicationDate) {
         this.publicationDate = publicationDate;
     }
 
