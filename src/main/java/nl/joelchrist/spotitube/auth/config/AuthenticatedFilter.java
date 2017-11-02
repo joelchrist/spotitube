@@ -29,6 +29,7 @@ public class AuthenticatedFilter implements ContainerRequestFilter {
             AuthenticationToken authenticationToken = authenticationTokenManager.getAuthenticationToken(token);
             if (authenticationToken.getExpiryDate().before(new Date())) {
                 unAuthorizeRequest(containerRequestContext);
+                return;
             }
             authenticationTokenManager.updateExpiryDate(authenticationToken);
         } catch (EntityNotFoundException e) {
