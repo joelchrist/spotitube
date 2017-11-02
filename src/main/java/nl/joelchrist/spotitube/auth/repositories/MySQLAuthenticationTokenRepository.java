@@ -20,7 +20,7 @@ public class MySQLAuthenticationTokenRepository extends Repository implements Au
         super();
     }
 
-    public Optional<AuthenticationToken> getAuthenticationToken(String token) {
+    public Optional<AuthenticationToken> getAuthenticationTokenByToken(String token) {
         try {
             Connection connection = getConnection();
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM AuthenticationTokens WHERE token = ?");
@@ -54,7 +54,7 @@ public class MySQLAuthenticationTokenRepository extends Repository implements Au
     }
 
     @Override
-    public Optional<AuthenticationToken> getAuthenticationToken(User user) {
+    public Optional<AuthenticationToken> getAuthenticationTokenByUser(User user) {
         try {
             Connection connection = getConnection();
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM AuthenticationTokens WHERE user = ?");

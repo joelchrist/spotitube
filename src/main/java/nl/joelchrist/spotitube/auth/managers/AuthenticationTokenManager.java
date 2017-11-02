@@ -17,20 +17,20 @@ public class AuthenticationTokenManager {
     @Inject
     private AuthenticationTokenRepository authenticationTokenRepository;
 
-    public AuthenticationToken getAuthenticationToken(String token) throws EntityNotFoundException {
-        Optional<AuthenticationToken> authenticationTokenOptional = authenticationTokenRepository.getAuthenticationToken(token);
+    public AuthenticationToken getAuthenticationTokenByToken(String token) throws EntityNotFoundException {
+        Optional<AuthenticationToken> authenticationTokenOptional = authenticationTokenRepository.getAuthenticationTokenByToken(token);
         return authenticationTokenOptional.orElseThrow(() -> new EntityNotFoundException(AuthenticationToken.class));
     }
 
-    public AuthenticationToken getAuthenticationToken(User user) throws EntityNotFoundException {
-        Optional<AuthenticationToken> authenticationTokenOptional = authenticationTokenRepository.getAuthenticationToken(user);
+    public AuthenticationToken getAuthenticationTokenByUser(User user) throws EntityNotFoundException {
+        Optional<AuthenticationToken> authenticationTokenOptional = authenticationTokenRepository.getAuthenticationTokenByUser(user);
         return authenticationTokenOptional.orElseThrow(() -> new EntityNotFoundException(AuthenticationToken.class));
     }
 
     public AuthenticationToken generateOrUpdateToken(User user) {
         AuthenticationToken authenticationToken;
         try {
-            authenticationToken = getAuthenticationToken(user);
+            authenticationToken = getAuthenticationTokenByUser(user);
             updateExpiryDate(authenticationToken);
 
         } catch (EntityNotFoundException e) {

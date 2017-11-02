@@ -8,11 +8,11 @@ import java.util.Date;
 import java.util.Optional;
 
 public interface AuthenticationTokenRepository {
-    Optional<AuthenticationToken> getAuthenticationToken(String token);
+    Optional<AuthenticationToken> getAuthenticationTokenByToken(String token);
 
     void saveToken(AuthenticationToken token);
 
-    Optional<AuthenticationToken> getAuthenticationToken(User user);
+    Optional<AuthenticationToken> getAuthenticationTokenByUser(User user);
 
     void updateExpiryDate(AuthenticationToken authenticationToken, Date expiryDate);
 }
