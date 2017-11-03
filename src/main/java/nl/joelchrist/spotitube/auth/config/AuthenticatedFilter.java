@@ -26,7 +26,7 @@ public class AuthenticatedFilter implements ContainerRequestFilter {
     public void filter(ContainerRequestContext containerRequestContext) throws IOException {
         String token = containerRequestContext.getUriInfo().getQueryParameters().getFirst("token");
         try {
-            AuthenticationToken authenticationToken = authenticationTokenManager.getAuthenticationToken(token);
+            AuthenticationToken authenticationToken = authenticationTokenManager.getAuthenticationTokenByToken(token);
             if (authenticationToken.getExpiryDate().before(new Date())) {
                 unAuthorizeRequest(containerRequestContext);
                 return;

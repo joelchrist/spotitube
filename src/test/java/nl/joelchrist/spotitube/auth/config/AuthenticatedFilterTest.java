@@ -10,15 +10,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerRequestFilter;
-import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import java.util.Date;
 
-import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -57,7 +54,7 @@ public class AuthenticatedFilterTest {
         AuthenticationToken authenticationToken = mock(AuthenticationToken.class);
         when(authenticationToken.getExpiryDate()).thenReturn(new Date(new Date().getTime() + 6000));
 
-        when(authenticationTokenManager.getAuthenticationToken("1234-1234-1234")).thenReturn(authenticationToken);
+        when(authenticationTokenManager.getAuthenticationTokenByToken("1234-1234-1234")).thenReturn(authenticationToken);
 
         authenticatedFilter.filter(containerRequestContext);
 
@@ -75,7 +72,7 @@ public class AuthenticatedFilterTest {
         AuthenticationToken authenticationToken = mock(AuthenticationToken.class);
         when(authenticationToken.getExpiryDate()).thenReturn(new Date(new Date().getTime() - 6000));
 
-        when(authenticationTokenManager.getAuthenticationToken("1234-1234-1234")).thenReturn(authenticationToken);
+        when(authenticationTokenManager.getAuthenticationTokenByToken("1234-1234-1234")).thenReturn(authenticationToken);
 
         authenticatedFilter.filter(containerRequestContext);
 
@@ -90,12 +87,12 @@ public class AuthenticatedFilterTest {
         when(uriInfo.getQueryParameters()).thenReturn(map);
         when(map.getFirst("token")).thenReturn("1234-1234-1234");
 
-        when(authenticationTokenManager.getAuthenticationToken("1234-1234-1234")).thenThrow(new EntityNotFoundException(AuthenticationToken.class));
+        when(authenticationTokenManager.getAuthenticationTokenByToken("1234-1234-1234")).thenThrow(new EntityNotFoundException(AuthenticationToken.class));
 
         authenticatedFilter.filter(containerRequestContext);
 
         verify(containerRequestContext).abortWith(any(Response.class));
-        verify(authenticationTokenManager).getAuthenticationToken("1234-1234-1234");
+        verify(authenticationTokenManager).getAuthenticationTokenByToken("1234-1234-1234");
         verifyNoMoreInteractions(authenticationTokenManager);
     }
 }
