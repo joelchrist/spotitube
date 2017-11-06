@@ -52,8 +52,7 @@ public class PlaylistsEndpoint {
     @Path("/{playlistId}/tracks")
     @Produces("application/json")
     public RestTracksResult getTracksInPlaylist(@PathParam("playlistId") Integer playlistId) {
-        List<Track> tracks = tracksManager.getTracksInPlaylist(playlistId);
-        List<RestTrack> restTracks = tracks.stream().map(restTrackMapper::toRest).collect(Collectors.toList());
+        List<RestTrack> restTracks = getRestTracks(playlistId);
         return new RestTracksResult(restTracks);
     }
 
@@ -102,8 +101,7 @@ public class PlaylistsEndpoint {
     @Produces("application/json")
     public RestTracksResult removeTrackFromPlaylist(@PathParam("playlistId") Integer playlistId, @PathParam("trackId") Integer trackId) {
         playlistTrackManager.removeTrackFromPlaylist(playlistId, trackId);
-        List<Track> tracks = tracksManager.getTracksInPlaylist(playlistId);
-        List<RestTrack> restTracks = tracks.stream().map(restTrackMapper::toRest).collect(Collectors.toList());
+        List<RestTrack> restTracks = getRestTracks(playlistId);
         return new RestTracksResult(restTracks);
     }
 
@@ -113,9 +111,13 @@ public class PlaylistsEndpoint {
     public RestTracksResult addTrackToPlaylist(@PathParam("playlistId") Integer playlistId, TrackRequest trackRequest) {
         PlaylistTrack playlistTrack = new PlaylistTrack(playlistId, trackRequest.getId());
         playlistTrackManager.addTrackToPlaylist(playlistTrack);
-        List<Track> tracks = tracksManager.getTracksInPlaylist(playlistId);
-        List<RestTrack> restTracks = tracks.stream().map(restTrackMapper::toRest).collect(Collectors.toList());
+        List<RestTrack> restTracks = getRestTracks(playlistId);
         return new RestTracksResult(restTracks);
+    }
+
+    private List<RestTrack> getRestTracks(Integer playlistId) {
+        List<Track> tracks = tracksManager.getTracksInPlaylist(playlistId);
+        return tracks.stream().map(restTrackMapper::toRest).collect(Collectors.toList());
     }
 
     private List<Playlist> getPlaylistsWithTracks() {
