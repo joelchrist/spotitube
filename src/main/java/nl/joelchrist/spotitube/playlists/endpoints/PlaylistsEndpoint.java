@@ -6,6 +6,7 @@ import nl.joelchrist.spotitube.playlists.managers.PlaylistsManager;
 import nl.joelchrist.spotitube.playlists.rest.PlaylistRequest;
 import nl.joelchrist.spotitube.playlists.rest.RestPlaylistResult;
 import nl.joelchrist.spotitube.playlists.rest.RestPlaylistResultMapper;
+import nl.joelchrist.spotitube.playlisttrack.managers.PlaylistTrackManager;
 import nl.joelchrist.spotitube.tracks.domain.Track;
 import nl.joelchrist.spotitube.tracks.managers.TracksManager;
 import nl.joelchrist.spotitube.tracks.rest.RestTrack;
@@ -41,6 +42,9 @@ public class PlaylistsEndpoint {
 
     @Inject
     private RestTrackMapper restTrackMapper;
+
+    @Inject
+    private PlaylistTrackManager playlistTrackManager;
 
     @GET
     @Path("/{playlistId}/tracks")
@@ -89,6 +93,16 @@ public class PlaylistsEndpoint {
         playlistsManager.updateName(playlistId, playlistRequest.getName());
         List<Playlist> playlists = getPlaylistsWithTracks();
         return restPlaylistResultMapper.toRest(playlists);
+    }
+
+    @DELETE
+    @Path("/{playlistId}/tracks/{trackId}")
+    @Produces("application/json")
+    public RestTracksResult removeTrackFromPlaylist (@PathParam("playlistId") Integer playlistId, @PathParam("trackId") Integer trackId) {
+        playlistTrackManager.removeTrackFromPlaylist(playlistId, trackId);
+        List<Track> tracks = tracksManager.getTracksInPlaylist(playlistId);
+        List<RestTrack> restTracks = tracks.stream().map(restTrackMapper::toRest).collect(Collectors.toList());
+        return new RestTracksResult(restTracks);
     }
 
     private List<Playlist> getPlaylistsWithTracks() {

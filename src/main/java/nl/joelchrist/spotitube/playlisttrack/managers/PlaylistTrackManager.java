@@ -20,4 +20,7 @@ public class PlaylistTrackManager {
     }
 
 
+    public void removeTrackFromPlaylist(Integer playlistId, Integer trackId) {
+        playlistTrackRepository.removeTrackFromPlaylist(playlistId, trackId);
+    }
 }

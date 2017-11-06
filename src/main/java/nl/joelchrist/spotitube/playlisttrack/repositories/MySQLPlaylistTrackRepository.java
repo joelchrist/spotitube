@@ -61,6 +61,21 @@ public class MySQLPlaylistTrackRepository extends Repository implements Playlist
         return null;
     }
 
+    @Override
+    public void removeTrackFromPlaylist(Integer playlistId, Integer trackId) {
+        try {
+            Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM `PlaylistTrack` WHERE `playlist_id` = ? AND `track_id` = ?");
+            statement.setInt(1, playlistId);
+            statement.setInt(2, trackId);
+            statement.execute();
+        } catch (SQLException e) {
+            logger.warning(String.format("Failed to remove PlaylistTrack with playlistId %n and trackId %n", playlistId, trackId));
+            e.printStackTrace();
+        }
+
+    }
+
     private PlaylistTrack buildPlaylistTrackFromResultSet(ResultSet resultSet) throws SQLException {
         Integer trackId = resultSet.getInt("track_id");
         Integer playlistId = resultSet.getInt("playlist_id");
