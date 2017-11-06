@@ -10,4 +10,6 @@ public interface PlaylistsRepository {
     void deletePlaylist(Integer playlistId);
 
     void addPlaylist(Playlist playlist);
+
+    void updateName(Integer playlistId, String name);
 }

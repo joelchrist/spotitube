@@ -67,6 +67,20 @@ public class MySQLPlaylistsRepository extends Repository implements PlaylistsRep
         }
     }
 
+    @Override
+    public void updateName(Integer playlistId, String name) {
+        try {
+            Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement("UPDATE `Playlists` SET `name` = ? WHERE `id` = ?");
+            statement.setString(1, name);
+            statement.setInt(2, playlistId);
+            statement.execute();
+        } catch (SQLException e) {
+            logger.warning(String.format("Failed to update name of playlist with id %n and name %s", playlistId, name));
+            e.printStackTrace();
+        }
+    }
+
     private Playlist buildPlaylistFromResultSet(ResultSet resultSet) throws SQLException {
         Integer id = resultSet.getInt("id");
         String name = resultSet.getString("name");

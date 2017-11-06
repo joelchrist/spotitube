@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -77,6 +78,15 @@ public class PlaylistsEndpoint {
         User user = (User) servletRequest.getAttribute("currentUser");
         playlist.setOwner(user.getUser());
         playlistsManager.addPlaylist(playlist);
+        List<Playlist> playlists = getPlaylistsWithTracks();
+        return restPlaylistResultMapper.toRest(playlists);
+    }
+
+    @PUT
+    @Produces("application/json")
+    @Path("/{playlistId}")
+    public RestPlaylistResult editPlaylist(@PathParam("playlistId") Integer playlistId, PlaylistRequest playlistRequest) {
+        playlistsManager.updateName(playlistId, playlistRequest.getName());
         List<Playlist> playlists = getPlaylistsWithTracks();
         return restPlaylistResultMapper.toRest(playlists);
     }

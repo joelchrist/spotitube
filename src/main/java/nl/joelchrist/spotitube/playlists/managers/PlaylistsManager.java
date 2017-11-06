@@ -21,4 +21,8 @@ public class PlaylistsManager {
     public void addPlaylist(Playlist playlist) {
         playlistsRepository.addPlaylist(playlist);
     }
+
+    public void updateName(Integer playlistId, String name) {
+        playlistsRepository.updateName(playlistId, name);
+    }
 }
