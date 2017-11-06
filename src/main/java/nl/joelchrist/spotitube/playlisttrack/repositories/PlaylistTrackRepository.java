@@ -10,5 +10,5 @@ public interface PlaylistTrackRepository {
     List<PlaylistTrack> findByPlaylistId(Integer playlistId);
     Optional<PlaylistTrack> findByTrackId(Integer trackId);
     void removeTrackFromPlaylist(Integer playlistId, Integer trackId);
-
+    void addPlaylistTrack(PlaylistTrack playlistTrack);
 }

@@ -6,12 +6,14 @@ import nl.joelchrist.spotitube.playlists.managers.PlaylistsManager;
 import nl.joelchrist.spotitube.playlists.rest.PlaylistRequest;
 import nl.joelchrist.spotitube.playlists.rest.RestPlaylistResult;
 import nl.joelchrist.spotitube.playlists.rest.RestPlaylistResultMapper;
+import nl.joelchrist.spotitube.playlisttrack.domain.PlaylistTrack;
 import nl.joelchrist.spotitube.playlisttrack.managers.PlaylistTrackManager;
 import nl.joelchrist.spotitube.tracks.domain.Track;
 import nl.joelchrist.spotitube.tracks.managers.TracksManager;
 import nl.joelchrist.spotitube.tracks.rest.RestTrack;
 import nl.joelchrist.spotitube.tracks.rest.RestTrackMapper;
 import nl.joelchrist.spotitube.tracks.rest.RestTracksResult;
+import nl.joelchrist.spotitube.tracks.rest.TrackRequest;
 import nl.joelchrist.spotitube.users.domain.User;
 
 import javax.inject.Inject;
@@ -98,8 +100,19 @@ public class PlaylistsEndpoint {
     @DELETE
     @Path("/{playlistId}/tracks/{trackId}")
     @Produces("application/json")
-    public RestTracksResult removeTrackFromPlaylist (@PathParam("playlistId") Integer playlistId, @PathParam("trackId") Integer trackId) {
+    public RestTracksResult removeTrackFromPlaylist(@PathParam("playlistId") Integer playlistId, @PathParam("trackId") Integer trackId) {
         playlistTrackManager.removeTrackFromPlaylist(playlistId, trackId);
+        List<Track> tracks = tracksManager.getTracksInPlaylist(playlistId);
+        List<RestTrack> restTracks = tracks.stream().map(restTrackMapper::toRest).collect(Collectors.toList());
+        return new RestTracksResult(restTracks);
+    }
+
+    @POST
+    @Path("/{playlistId}/tracks")
+    @Produces("application/json")
+    public RestTracksResult addTrackToPlaylist(@PathParam("playlistId") Integer playlistId, TrackRequest trackRequest) {
+        PlaylistTrack playlistTrack = new PlaylistTrack(playlistId, trackRequest.getId());
+        playlistTrackManager.addTrackToPlaylist(playlistTrack);
         List<Track> tracks = tracksManager.getTracksInPlaylist(playlistId);
         List<RestTrack> restTracks = tracks.stream().map(restTrackMapper::toRest).collect(Collectors.toList());
         return new RestTracksResult(restTracks);
@@ -110,7 +123,6 @@ public class PlaylistsEndpoint {
         playlists.forEach(playlist -> {
             playlist.setTracks(tracksManager.getTracksInPlaylist(playlist.getId()));
         });
-
         return playlists;
     }
 }

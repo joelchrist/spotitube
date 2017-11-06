@@ -2,6 +2,7 @@ package nl.joelchrist.spotitube.playlisttrack.managers;
 
 import nl.joelchrist.spotitube.playlisttrack.repositories.PlaylistTrackRepository;
 import nl.joelchrist.spotitube.playlisttrack.domain.PlaylistTrack;
+import nl.joelchrist.spotitube.tracks.rest.TrackRequest;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -22,5 +23,9 @@ public class PlaylistTrackManager {
 
     public void removeTrackFromPlaylist(Integer playlistId, Integer trackId) {
         playlistTrackRepository.removeTrackFromPlaylist(playlistId, trackId);
+    }
+
+    public void addTrackToPlaylist(PlaylistTrack playlistTrack) {
+        playlistTrackRepository.addPlaylistTrack(playlistTrack);
     }
 }

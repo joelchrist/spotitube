@@ -70,7 +70,23 @@ public class MySQLPlaylistTrackRepository extends Repository implements Playlist
             statement.setInt(2, trackId);
             statement.execute();
         } catch (SQLException e) {
-            logger.warning(String.format("Failed to remove PlaylistTrack with playlistId %n and trackId %n", playlistId, trackId));
+            logger.warning(String.format("Failed to remove PlaylistTrack with playlistId %s and trackId %s", playlistId, trackId));
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void addPlaylistTrack(PlaylistTrack playlistTrack) {
+        try {
+            Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO `PlaylistTrack` (`track_id`, `playlist_id`) VALUES (? ,?)");
+            statement.setInt(1, playlistTrack.getTrackId());
+            statement.setInt(2, playlistTrack.getPlaylistId());
+            statement.execute();
+        }
+        catch (SQLException e) {
+            logger.warning(String.format("Failed to insert playlistTrack with trackId %s and playlistId %s", playlistTrack.getTrackId(), playlistTrack.getPlaylistId()));
             e.printStackTrace();
         }
 
