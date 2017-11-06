@@ -17,4 +17,8 @@ public class PlaylistsManager {
     public void deletePlaylist(Integer playlistId) {
         playlistsRepository.deletePlaylist(playlistId);
     }
+
+    public void addPlaylist(Playlist playlist) {
+        playlistsRepository.addPlaylist(playlist);
+    }
 }

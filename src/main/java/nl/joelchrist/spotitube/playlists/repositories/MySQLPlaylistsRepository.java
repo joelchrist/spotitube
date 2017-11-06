@@ -53,6 +53,20 @@ public class MySQLPlaylistsRepository extends Repository implements PlaylistsRep
 
     }
 
+    @Override
+    public void addPlaylist(Playlist playlist) {
+        try {
+            Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO `Playlists` (`name`, `owner`) VALUE (?, ?)");
+            statement.setString(1, playlist.getName());
+            statement.setString(2, playlist.getOwner());
+            statement.execute();
+        } catch (SQLException e) {
+            logger.warning(String.format("Failed to insert playlist with values %s, %s into database", playlist.getName(), playlist.getOwner()));
+            e.printStackTrace();
+        }
+    }
+
     private Playlist buildPlaylistFromResultSet(ResultSet resultSet) throws SQLException {
         Integer id = resultSet.getInt("id");
         String name = resultSet.getString("name");

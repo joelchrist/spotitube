@@ -3,6 +3,7 @@ package nl.joelchrist.spotitube.playlists.endpoints;
 import nl.joelchrist.spotitube.auth.config.Authenticated;
 import nl.joelchrist.spotitube.playlists.domain.Playlist;
 import nl.joelchrist.spotitube.playlists.managers.PlaylistsManager;
+import nl.joelchrist.spotitube.playlists.rest.PlaylistRequest;
 import nl.joelchrist.spotitube.playlists.rest.RestPlaylistResult;
 import nl.joelchrist.spotitube.playlists.rest.RestPlaylistResultMapper;
 import nl.joelchrist.spotitube.tracks.domain.Track;
@@ -10,13 +11,18 @@ import nl.joelchrist.spotitube.tracks.managers.TracksManager;
 import nl.joelchrist.spotitube.tracks.rest.RestTrack;
 import nl.joelchrist.spotitube.tracks.rest.RestTrackMapper;
 import nl.joelchrist.spotitube.tracks.rest.RestTracksResult;
+import nl.joelchrist.spotitube.users.domain.User;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.core.Context;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,6 +64,19 @@ public class PlaylistsEndpoint {
     @Path("/{playlistId}")
     public RestPlaylistResult deletePlaylist(@PathParam("playlistId") Integer playlistId) {
         playlistsManager.deletePlaylist(playlistId);
+        List<Playlist> playlists = getPlaylistsWithTracks();
+        return restPlaylistResultMapper.toRest(playlists);
+    }
+
+    @POST
+    @Produces("application/json")
+    @Authenticated
+    public RestPlaylistResult addPlaylist(PlaylistRequest playlistRequest, @Context HttpServletRequest servletRequest) {
+        Playlist playlist = new Playlist();
+        playlist.setName(playlistRequest.getName());
+        User user = (User) servletRequest.getAttribute("currentUser");
+        playlist.setOwner(user.getUser());
+        playlistsManager.addPlaylist(playlist);
         List<Playlist> playlists = getPlaylistsWithTracks();
         return restPlaylistResultMapper.toRest(playlists);
     }

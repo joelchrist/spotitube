@@ -8,4 +8,6 @@ public interface PlaylistsRepository {
     List<Playlist> findAll();
 
     void deletePlaylist(Integer playlistId);
+
+    void addPlaylist(Playlist playlist);
 }
