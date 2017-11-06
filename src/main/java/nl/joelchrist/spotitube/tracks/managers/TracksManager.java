@@ -24,4 +24,9 @@ public class TracksManager {
         List<Track> tracks = tracksRepository.findAll();
         return tracks.stream().filter(track -> !playlistTrackHelper.isTrackInPlaylist(track, playlistId)).collect(Collectors.toList());
     }
+
+    public List<Track> getTracksInPlaylist(Integer playlistId) {
+        List<Track> tracks = tracksRepository.findAll();
+        return tracks.stream().filter(track -> playlistTrackHelper.isTrackInPlaylist(track, playlistId)).collect(Collectors.toList());
+    }
 }

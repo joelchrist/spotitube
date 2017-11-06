@@ -4,6 +4,7 @@ import nl.joelchrist.spotitube.tracks.domain.Track;
 import nl.joelchrist.spotitube.tracks.managers.TracksManager;
 import nl.joelchrist.spotitube.tracks.rest.RestTrack;
 import nl.joelchrist.spotitube.tracks.rest.RestTrackMapper;
+import nl.joelchrist.spotitube.tracks.rest.RestTracksResult;
 
 import javax.inject.Inject;
 import javax.ws.rs.DefaultValue;
@@ -25,7 +26,7 @@ public class TracksEndpoint {
 
     @GET
     @Produces("application/json")
-    public List<RestTrack> getTracks(@QueryParam("forPlaylist") @DefaultValue("0") Integer playListId) {
+    public RestTracksResult getTracks(@QueryParam("forPlaylist") @DefaultValue("0") Integer playListId) {
         List<Track> tracks;
         if (playListId.equals(0)) {
             tracks = tracksManager.getTracks();
@@ -33,7 +34,8 @@ public class TracksEndpoint {
         else {
             tracks = tracksManager.getTracksNotInPlaylist(playListId);
         }
-        return tracks.stream().map(restTrackMapper::toRest).collect(Collectors.toList());
+        List<RestTrack> restTracks = tracks.stream().map(restTrackMapper::toRest).collect(Collectors.toList());
+        return new RestTracksResult(restTracks);
     }
 
 }

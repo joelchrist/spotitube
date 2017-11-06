@@ -13,7 +13,10 @@ public class Playlist {
     public Playlist() {
     }
 
-    public Playlist(List<Track> tracks) {
+    public Playlist(Integer id, String name, String owner, List<Track> tracks) {
+        this.id = id;
+        this.name = name;
+        this.owner = owner;
         this.tracks = tracks;
     }
 

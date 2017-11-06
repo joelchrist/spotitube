@@ -89,7 +89,7 @@ public class MySQLAuthenticationTokenRepository extends Repository implements Au
     private AuthenticationToken buildAuthenticationTokenFromResultSet(ResultSet resultSet) throws SQLException {
         String user = resultSet.getString("user");
         String token = resultSet.getString("token");
-        Date expiryDate = resultSet.getDate("expiry_date");
+        Date expiryDate = resultSet.getTimestamp("expiry_date");
 
         return new AuthenticationToken(user, token, expiryDate);
     }

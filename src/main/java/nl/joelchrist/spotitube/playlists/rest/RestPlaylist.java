@@ -1,38 +1,55 @@
 package nl.joelchrist.spotitube.playlists.rest;
 
-import nl.joelchrist.spotitube.playlists.domain.Playlist;
 import nl.joelchrist.spotitube.tracks.domain.Track;
+import nl.joelchrist.spotitube.tracks.rest.RestTrack;
 
 import java.util.List;
 
 public class RestPlaylist {
-    private List<Playlist> playlists;
-    private Integer playListLength;
+    private Integer id;
+    private String name;
+    private String owner;
+    private List<RestTrack> tracks;
 
     public RestPlaylist() {
     }
 
-    public RestPlaylist(List<Playlist> playlists) {
-        this.playlists = playlists;
-        this.playListLength = playlists.stream().map(Playlist::getTracks).reduce((tracks, tracks2) -> {
-            tracks.addAll(tracks2);
-            return tracks;
-        }).map(tracks -> tracks.stream().mapToInt(Track::getDuration).sum()).orElse(0);
+    public RestPlaylist(Integer id, String name, String owner, List<RestTrack> tracks) {
+        this.id = id;
+        this.name = name;
+        this.owner = owner;
+        this.tracks = tracks;
     }
 
-    public List<Playlist> getPlaylist() {
-        return playlists;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPlaylist(List<Playlist> playlists) {
-        this.playlists = playlists;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getPlayListLength() {
-        return playListLength;
+    public String getName() {
+        return name;
     }
 
-    public void setPlayListLength(Integer playListLength) {
-        this.playListLength = playListLength;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public List<RestTrack> getTracks() {
+        return tracks;
+    }
+
+    public void setTracks(List<RestTrack> tracks) {
+        this.tracks = tracks;
     }
 }

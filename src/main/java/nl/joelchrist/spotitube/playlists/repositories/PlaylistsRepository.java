@@ -1,5 +1,11 @@
 package nl.joelchrist.spotitube.playlists.repositories;
 
-public interface PlaylistsRepository {
+import nl.joelchrist.spotitube.playlists.domain.Playlist;
 
+import java.util.List;
+
+public interface PlaylistsRepository {
+    List<Playlist> findAll();
+
+    void deletePlaylist(Integer playlistId);
 }

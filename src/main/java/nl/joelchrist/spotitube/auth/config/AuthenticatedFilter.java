@@ -3,6 +3,8 @@ package nl.joelchrist.spotitube.auth.config;
 import nl.joelchrist.spotitube.auth.domain.AuthenticationToken;
 import nl.joelchrist.spotitube.auth.managers.AuthenticationTokenManager;
 import nl.joelchrist.spotitube.exceptions.EntityNotFoundException;
+import nl.joelchrist.spotitube.users.domain.User;
+import nl.joelchrist.spotitube.users.managers.UserManager;
 
 import javax.annotation.Priority;
 import javax.inject.Inject;
@@ -22,6 +24,9 @@ public class AuthenticatedFilter implements ContainerRequestFilter {
     @Inject
     private AuthenticationTokenManager authenticationTokenManager;
 
+    @Inject
+    private UserManager userManager;
+
     @Override
     public void filter(ContainerRequestContext containerRequestContext) throws IOException {
         String token = containerRequestContext.getUriInfo().getQueryParameters().getFirst("token");
@@ -32,6 +37,9 @@ public class AuthenticatedFilter implements ContainerRequestFilter {
                 return;
             }
             authenticationTokenManager.updateExpiryDate(authenticationToken);
+            User currentUser = userManager.getUser(authenticationToken.getUser());
+
+            containerRequestContext.setProperty("currentUser", currentUser);
         } catch (EntityNotFoundException e) {
             unAuthorizeRequest(containerRequestContext);
         }

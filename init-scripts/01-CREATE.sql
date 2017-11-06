@@ -73,13 +73,13 @@ CREATE TABLE IF NOT EXISTS `spotitube`.`PlaylistTrack` (
   CONSTRAINT `FK_Track`
     FOREIGN KEY (`track_id`)
     REFERENCES `spotitube`.`Tracks` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `FK_Playlist`
     FOREIGN KEY (`playlist_id`)
     REFERENCES `spotitube`.`Playlists` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 

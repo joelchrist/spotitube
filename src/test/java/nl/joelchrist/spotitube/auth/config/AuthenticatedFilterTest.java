@@ -3,6 +3,8 @@ package nl.joelchrist.spotitube.auth.config;
 import nl.joelchrist.spotitube.auth.domain.AuthenticationToken;
 import nl.joelchrist.spotitube.auth.managers.AuthenticationTokenManager;
 import nl.joelchrist.spotitube.exceptions.EntityNotFoundException;
+import nl.joelchrist.spotitube.users.domain.User;
+import nl.joelchrist.spotitube.users.managers.UserManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,6 +32,9 @@ public class AuthenticatedFilterTest {
     @Mock
     private ContainerRequestContext containerRequestContext;
 
+    @Mock
+    private UserManager userManager;
+
     @InjectMocks
     private AuthenticatedFilter authenticatedFilter;
 
@@ -51,14 +56,24 @@ public class AuthenticatedFilterTest {
         when(uriInfo.getQueryParameters()).thenReturn(map);
         when(map.getFirst("token")).thenReturn("1234-1234-1234");
 
+
+
         AuthenticationToken authenticationToken = mock(AuthenticationToken.class);
+        when(authenticationToken.getUser()).thenReturn("johndoe");
         when(authenticationToken.getExpiryDate()).thenReturn(new Date(new Date().getTime() + 6000));
+
+        User user = mock(User.class);
+
+        when(userManager.getUser("johndoe")).thenReturn(user);
+
 
         when(authenticationTokenManager.getAuthenticationTokenByToken("1234-1234-1234")).thenReturn(authenticationToken);
 
         authenticatedFilter.filter(containerRequestContext);
 
         verify(authenticationTokenManager).updateExpiryDate(authenticationToken);
+        verify(containerRequestContext).setProperty("currentUser", user);
+
     }
 
     @Test
