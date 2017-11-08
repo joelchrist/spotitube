@@ -1,4 +1,4 @@
-package nl.joelchrist.spotitube.playlisttrack.domain;
+package nl.joelchrist.spotitube.playlisttracks.domain;
 
 public class PlaylistTrack {
     private Integer trackId;

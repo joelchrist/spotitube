@@ -1,7 +1,7 @@
-package nl.joelchrist.spotitube.playlisttrack.helpers;
+package nl.joelchrist.spotitube.playlisttracks.helpers;
 
-import nl.joelchrist.spotitube.playlisttrack.domain.PlaylistTrack;
-import nl.joelchrist.spotitube.playlisttrack.managers.PlaylistTrackManager;
+import nl.joelchrist.spotitube.playlisttracks.domain.PlaylistTrack;
+import nl.joelchrist.spotitube.playlisttracks.managers.PlaylistTrackManager;
 import nl.joelchrist.spotitube.tracks.domain.Track;
 
 import javax.inject.Inject;

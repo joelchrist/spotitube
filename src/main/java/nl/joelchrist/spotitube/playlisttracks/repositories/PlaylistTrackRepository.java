@@ -1,6 +1,6 @@
-package nl.joelchrist.spotitube.playlisttrack.repositories;
+package nl.joelchrist.spotitube.playlisttracks.repositories;
 
-import nl.joelchrist.spotitube.playlisttrack.domain.PlaylistTrack;
+import nl.joelchrist.spotitube.playlisttracks.domain.PlaylistTrack;
 
 import java.util.List;
 import java.util.Optional;

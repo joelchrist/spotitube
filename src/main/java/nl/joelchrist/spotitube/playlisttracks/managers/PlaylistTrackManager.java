@@ -1,8 +1,7 @@
-package nl.joelchrist.spotitube.playlisttrack.managers;
+package nl.joelchrist.spotitube.playlisttracks.managers;
 
-import nl.joelchrist.spotitube.playlisttrack.repositories.PlaylistTrackRepository;
-import nl.joelchrist.spotitube.playlisttrack.domain.PlaylistTrack;
-import nl.joelchrist.spotitube.tracks.rest.TrackRequest;
+import nl.joelchrist.spotitube.playlisttracks.repositories.PlaylistTrackRepository;
+import nl.joelchrist.spotitube.playlisttracks.domain.PlaylistTrack;
 
 import javax.inject.Inject;
 import java.util.List;

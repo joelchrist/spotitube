@@ -1,7 +1,7 @@
-package nl.joelchrist.spotitube.playlisttrack.repositories;
+package nl.joelchrist.spotitube.playlisttracks.repositories;
 
 import nl.joelchrist.spotitube.dao.Repository;
-import nl.joelchrist.spotitube.playlisttrack.domain.PlaylistTrack;
+import nl.joelchrist.spotitube.playlisttracks.domain.PlaylistTrack;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

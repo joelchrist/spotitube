@@ -1,6 +1,6 @@
 package nl.joelchrist.spotitube.tracks.managers;
 
-import nl.joelchrist.spotitube.playlisttrack.helpers.PlaylistTrackHelper;
+import nl.joelchrist.spotitube.playlisttracks.helpers.PlaylistTrackHelper;
 import nl.joelchrist.spotitube.tracks.domain.Track;
 import nl.joelchrist.spotitube.tracks.repositories.TracksRepository;
 
