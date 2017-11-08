@@ -14,6 +14,6 @@ If you make changes to these scripts and want them to be executed, you should do
 - Remove the /mysql_data/ directory by running `rm -rf mysql_data`
 - Restart the containers by running `docker-compose up`
 
-# Documentation
+### Documentation
 Documentation can be found under the /doc/ directory. This directory contains the finished documentation document, as well as all diagrams in image format.
 There is also a .vpp file, which can be opened in Visual Paradigm. Lastly there is a database model available in .mwb format. This can be opened in MySQLWorkbench.
