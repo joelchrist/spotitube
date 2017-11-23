@@ -108,7 +108,7 @@ public class PlaylistsEndpoint {
     @Path("/{playlistId}/tracks")
     @Produces("application/json")
     public RestTracksResult addTrackToPlaylist(@PathParam("playlistId") Integer playlistId, TrackRequest trackRequest) {
-        PlaylistTrack playlistTrack = new PlaylistTrack(playlistId, trackRequest.getId());
+        PlaylistTrack playlistTrack = new PlaylistTrack(trackRequest.getId(), playlistId);
         playlistTrackManager.addTrackToPlaylist(playlistTrack);
         List<RestTrack> restTracks = getRestTracks(playlistId);
         return new RestTracksResult(restTracks);

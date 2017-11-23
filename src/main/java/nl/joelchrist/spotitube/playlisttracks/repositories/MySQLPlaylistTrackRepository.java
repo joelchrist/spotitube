@@ -27,6 +27,7 @@ public class MySQLPlaylistTrackRepository extends Repository implements Playlist
                 PlaylistTrack playlistTrack = buildPlaylistTrackFromResultSet(resultSet);
                 result.add(playlistTrack);
             }
+            connection.close();
             return result;
         } catch (SQLException e) {
             logger.warning("Failed to get all playlistTracks from database");
@@ -47,6 +48,7 @@ public class MySQLPlaylistTrackRepository extends Repository implements Playlist
                 PlaylistTrack playlistTrack = buildPlaylistTrackFromResultSet(resultSet);
                 result.add(playlistTrack);
             }
+            connection.close();
             return result;
         } catch (SQLException e) {
             logger.warning(String.format("Failed to get playlistTracks by playlistId %s", playlistId));
@@ -69,6 +71,7 @@ public class MySQLPlaylistTrackRepository extends Repository implements Playlist
             statement.setInt(1, playlistId);
             statement.setInt(2, trackId);
             statement.execute();
+            connection.close();
         } catch (SQLException e) {
             logger.warning(String.format("Failed to remove PlaylistTrack with playlistId %s and trackId %s", playlistId, trackId));
             e.printStackTrace();
@@ -84,6 +87,7 @@ public class MySQLPlaylistTrackRepository extends Repository implements Playlist
             statement.setInt(1, playlistTrack.getTrackId());
             statement.setInt(2, playlistTrack.getPlaylistId());
             statement.execute();
+            connection.close();
         }
         catch (SQLException e) {
             logger.warning(String.format("Failed to insert playlistTrack with trackId %s and playlistId %s", playlistTrack.getTrackId(), playlistTrack.getPlaylistId()));

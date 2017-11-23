@@ -25,6 +25,7 @@ public class MySQLUserRepository extends Repository implements UserRepository {
                 User returnUser = buildUserFromResultSet(resultSet);
                 return Optional.of(returnUser);
             }
+            connection.close();
             return Optional.empty();
         } catch (SQLException e) {
             logger.warning(String.format("Failed to get user with name: %s from database", user));

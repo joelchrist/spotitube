@@ -29,6 +29,7 @@ public class MySQLPlaylistsRepository extends Repository implements PlaylistsRep
                 Playlist playlist = buildPlaylistFromResultSet(resultSet);
                 result.add(playlist);
             }
+            connection.close();
             return result;
         } catch (SQLException e) {
             logger.warning("Failed to get all playlists from database");
@@ -46,6 +47,7 @@ public class MySQLPlaylistsRepository extends Repository implements PlaylistsRep
             PreparedStatement statement = connection.prepareStatement("DELETE FROM `Playlists` WHERE `id` = ?");
             statement.setInt(1, playlistId);
             statement.execute();
+            connection.close();
         } catch (SQLException e) {
             logger.warning(String.format("Failed to delete playlist with id %s", playlistId));
             e.printStackTrace();
@@ -61,6 +63,7 @@ public class MySQLPlaylistsRepository extends Repository implements PlaylistsRep
             statement.setString(1, playlist.getName());
             statement.setString(2, playlist.getOwner());
             statement.execute();
+            connection.close();
         } catch (SQLException e) {
             logger.warning(String.format("Failed to insert playlist with values %s, %s into database", playlist.getName(), playlist.getOwner()));
             e.printStackTrace();
@@ -75,6 +78,7 @@ public class MySQLPlaylistsRepository extends Repository implements PlaylistsRep
             statement.setString(1, name);
             statement.setInt(2, playlistId);
             statement.execute();
+            connection.close();
         } catch (SQLException e) {
             logger.warning(String.format("Failed to update name of playlist with id %n and name %s", playlistId, name));
             e.printStackTrace();

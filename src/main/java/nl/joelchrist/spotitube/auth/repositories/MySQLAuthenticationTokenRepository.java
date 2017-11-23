@@ -30,6 +30,7 @@ public class MySQLAuthenticationTokenRepository extends Repository implements Au
                 AuthenticationToken authenticationToken = buildAuthenticationTokenFromResultSet(resultSet);
                 return Optional.of(authenticationToken);
             }
+            connection.close();
             return Optional.empty();
         } catch (SQLException e) {
             logger.warning("Failed to get authenticationToken from database");
@@ -47,6 +48,7 @@ public class MySQLAuthenticationTokenRepository extends Repository implements Au
             statement.setString(2, token.getToken());
             statement.setTimestamp(3, generateTimeStampFromDate(token.getExpiryDate()));
             statement.executeUpdate();
+            connection.close();
         } catch (SQLException e) {
             logger.warning("Failed to save authenticationToken to database");
             e.printStackTrace();
@@ -64,6 +66,7 @@ public class MySQLAuthenticationTokenRepository extends Repository implements Au
                 AuthenticationToken authenticationToken = buildAuthenticationTokenFromResultSet(resultSet);
                 return Optional.of(authenticationToken);
             }
+            connection.close();
             return Optional.empty();
         } catch (SQLException e) {
             logger.warning("Failed to get authenticationToken from database");
@@ -80,6 +83,7 @@ public class MySQLAuthenticationTokenRepository extends Repository implements Au
             statement.setTimestamp(1, generateTimeStampFromDate(expiryDate));
             statement.setString(2, authenticationToken.getToken());
             statement.executeUpdate();
+            connection.close();
         } catch (SQLException e) {
             logger.warning("Failed to get authenticationToken from database");
             e.printStackTrace();

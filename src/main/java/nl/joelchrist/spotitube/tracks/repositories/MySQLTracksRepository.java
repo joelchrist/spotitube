@@ -30,6 +30,7 @@ public class MySQLTracksRepository extends Repository implements TracksRepositor
                 Track track = buildTrackFromResultSet(resultSet);
                 result.add(track);
             }
+            connection.close();
             return result;
         } catch (SQLException e) {
             logger.warning("Failed to get all tracks from database");
