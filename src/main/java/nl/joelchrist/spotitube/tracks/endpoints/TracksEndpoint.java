@@ -1,5 +1,6 @@
 package nl.joelchrist.spotitube.tracks.endpoints;
 
+import nl.joelchrist.spotitube.auth.config.Authenticated;
 import nl.joelchrist.spotitube.tracks.domain.Track;
 import nl.joelchrist.spotitube.tracks.managers.TracksManager;
 import nl.joelchrist.spotitube.tracks.rest.RestTrack;
@@ -26,6 +27,7 @@ public class TracksEndpoint {
 
     @GET
     @Produces("application/json")
+    @Authenticated
     public RestTracksResult getTracks(@QueryParam("forPlaylist") @DefaultValue("0") Integer playListId) {
         List<Track> tracks;
         if (playListId.equals(0)) {

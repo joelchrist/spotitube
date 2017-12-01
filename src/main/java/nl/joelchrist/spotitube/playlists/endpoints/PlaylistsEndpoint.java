@@ -50,6 +50,7 @@ public class PlaylistsEndpoint {
     @GET
     @Path("/{playlistId}/tracks")
     @Produces("application/json")
+    @Authenticated
     public RestTracksResult getTracksInPlaylist(@PathParam("playlistId") Integer playlistId) {
         List<RestTrack> restTracks = getRestTracks(playlistId);
         return new RestTracksResult(restTracks);
@@ -58,6 +59,7 @@ public class PlaylistsEndpoint {
 
     @GET
     @Produces("application/json")
+    @Authenticated
     public RestPlaylistResult getPlaylists() {
         List<Playlist> playlists = getPlaylistsWithTracks();
 
@@ -67,6 +69,7 @@ public class PlaylistsEndpoint {
     @DELETE
     @Produces("application/json")
     @Path("/{playlistId}")
+    @Authenticated
     public RestPlaylistResult deletePlaylist(@PathParam("playlistId") Integer playlistId) {
         playlistsManager.deletePlaylist(playlistId);
         List<Playlist> playlists = getPlaylistsWithTracks();
@@ -89,6 +92,7 @@ public class PlaylistsEndpoint {
     @PUT
     @Produces("application/json")
     @Path("/{playlistId}")
+    @Authenticated
     public RestPlaylistResult editPlaylist(@PathParam("playlistId") Integer playlistId, PlaylistRequest playlistRequest) {
         playlistsManager.updateName(playlistId, playlistRequest.getName());
         List<Playlist> playlists = getPlaylistsWithTracks();
@@ -98,6 +102,7 @@ public class PlaylistsEndpoint {
     @DELETE
     @Path("/{playlistId}/tracks/{trackId}")
     @Produces("application/json")
+    @Authenticated
     public RestTracksResult removeTrackFromPlaylist(@PathParam("playlistId") Integer playlistId, @PathParam("trackId") Integer trackId) {
         playlistTrackManager.removeTrackFromPlaylist(playlistId, trackId);
         List<RestTrack> restTracks = getRestTracks(playlistId);
@@ -107,6 +112,7 @@ public class PlaylistsEndpoint {
     @POST
     @Path("/{playlistId}/tracks")
     @Produces("application/json")
+    @Authenticated
     public RestTracksResult addTrackToPlaylist(@PathParam("playlistId") Integer playlistId, TrackRequest trackRequest) {
         PlaylistTrack playlistTrack = new PlaylistTrack(trackRequest.getId(), playlistId);
         playlistTrackManager.addTrackToPlaylist(playlistTrack);

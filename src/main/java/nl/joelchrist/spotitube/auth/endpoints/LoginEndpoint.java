@@ -1,5 +1,6 @@
 package nl.joelchrist.spotitube.auth.endpoints;
 
+import nl.joelchrist.spotitube.auth.config.Authenticated;
 import nl.joelchrist.spotitube.auth.domain.AuthenticationToken;
 import nl.joelchrist.spotitube.auth.domain.LoginCredentials;
 import nl.joelchrist.spotitube.auth.managers.AuthenticationTokenManager;
