@@ -1,8 +1,10 @@
 package nl.joelchrist.spotitube.auth.domain;
 
+import nl.joelchrist.spotitube.dao.domain.Document;
+
 import java.util.Date;
 
-public class AuthenticationToken {
+public class AuthenticationToken extends Document {
     private String user;
     private String token;
     private Date expiryDate;
@@ -11,6 +13,10 @@ public class AuthenticationToken {
         this.user = user;
         this.token = token;
         this.expiryDate = expiryDate;
+    }
+
+    public AuthenticationToken() {
+
     }
 
     public String getUser() {

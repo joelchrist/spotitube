@@ -2,11 +2,12 @@ package nl.joelchrist.spotitube.playlists.rest;
 
 import nl.joelchrist.spotitube.tracks.domain.Track;
 import nl.joelchrist.spotitube.tracks.rest.RestTrack;
+import org.bson.types.ObjectId;
 
 import java.util.List;
 
 public class RestPlaylist {
-    private Integer id;
+    private String id;
     private String name;
     private String owner;
     private List<RestTrack> tracks;
@@ -14,18 +15,18 @@ public class RestPlaylist {
     public RestPlaylist() {
     }
 
-    public RestPlaylist(Integer id, String name, String owner, List<RestTrack> tracks) {
+    public RestPlaylist(String id, String name, String owner, List<RestTrack> tracks) {
         this.id = id;
         this.name = name;
         this.owner = owner;
         this.tracks = tracks;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

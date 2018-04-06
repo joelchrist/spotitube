@@ -1,12 +1,18 @@
 package nl.joelchrist.spotitube.users.domain;
 
-public class User {
+import nl.joelchrist.spotitube.dao.domain.Document;
+
+public class User extends Document {
     private String user;
     private String password;
 
     public User(String user, String password) {
         this.user = user;
         this.password = password;
+    }
+
+    public User() {
+
     }
 
     public String getUser() {

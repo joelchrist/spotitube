@@ -18,21 +18,7 @@ public class DatabaseProperties {
         }
     }
 
-    public String getDriver()
-    {
-        return properties.getProperty("driver");
-    }
-
-    public String getUrl()
-    {
+    public String getUrl() {
         return properties.getProperty("url");
-    }
-
-    public String getUser() {
-        return properties.getProperty("user");
-    }
-
-    public String getPassword() {
-        return properties.getProperty("password");
     }
 }

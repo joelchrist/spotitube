@@ -15,6 +15,7 @@ import nl.joelchrist.spotitube.tracks.rest.RestTrackMapper;
 import nl.joelchrist.spotitube.tracks.rest.RestTracksResult;
 import nl.joelchrist.spotitube.tracks.rest.TrackRequest;
 import nl.joelchrist.spotitube.users.domain.User;
+import org.bson.types.ObjectId;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +52,7 @@ public class PlaylistsEndpoint {
     @Path("/{playlistId}/tracks")
     @Produces("application/json")
     @Authenticated
-    public RestTracksResult getTracksInPlaylist(@PathParam("playlistId") Integer playlistId) {
+    public RestTracksResult getTracksInPlaylist(@PathParam("playlistId") ObjectId playlistId) {
         List<RestTrack> restTracks = getRestTracks(playlistId);
         return new RestTracksResult(restTracks);
     }
@@ -70,7 +71,7 @@ public class PlaylistsEndpoint {
     @Produces("application/json")
     @Path("/{playlistId}")
     @Authenticated
-    public RestPlaylistResult deletePlaylist(@PathParam("playlistId") Integer playlistId) {
+    public RestPlaylistResult deletePlaylist(@PathParam("playlistId") ObjectId playlistId) {
         playlistsManager.deletePlaylist(playlistId);
         List<Playlist> playlists = getPlaylistsWithTracks();
         return restPlaylistResultMapper.toRest(playlists);
@@ -93,7 +94,7 @@ public class PlaylistsEndpoint {
     @Produces("application/json")
     @Path("/{playlistId}")
     @Authenticated
-    public RestPlaylistResult editPlaylist(@PathParam("playlistId") Integer playlistId, PlaylistRequest playlistRequest) {
+    public RestPlaylistResult editPlaylist(@PathParam("playlistId") ObjectId playlistId, PlaylistRequest playlistRequest) {
         playlistsManager.updateName(playlistId, playlistRequest.getName());
         List<Playlist> playlists = getPlaylistsWithTracks();
         return restPlaylistResultMapper.toRest(playlists);
@@ -103,7 +104,7 @@ public class PlaylistsEndpoint {
     @Path("/{playlistId}/tracks/{trackId}")
     @Produces("application/json")
     @Authenticated
-    public RestTracksResult removeTrackFromPlaylist(@PathParam("playlistId") Integer playlistId, @PathParam("trackId") Integer trackId) {
+    public RestTracksResult removeTrackFromPlaylist(@PathParam("playlistId") ObjectId playlistId, @PathParam("trackId") ObjectId trackId) {
         playlistTrackManager.removeTrackFromPlaylist(playlistId, trackId);
         List<RestTrack> restTracks = getRestTracks(playlistId);
         return new RestTracksResult(restTracks);
@@ -113,14 +114,14 @@ public class PlaylistsEndpoint {
     @Path("/{playlistId}/tracks")
     @Produces("application/json")
     @Authenticated
-    public RestTracksResult addTrackToPlaylist(@PathParam("playlistId") Integer playlistId, TrackRequest trackRequest) {
-        PlaylistTrack playlistTrack = new PlaylistTrack(trackRequest.getId(), playlistId);
+    public RestTracksResult addTrackToPlaylist(@PathParam("playlistId") ObjectId playlistId, TrackRequest trackRequest) {
+        PlaylistTrack playlistTrack = new PlaylistTrack(new ObjectId(trackRequest.getId()), playlistId);
         playlistTrackManager.addTrackToPlaylist(playlistTrack);
         List<RestTrack> restTracks = getRestTracks(playlistId);
         return new RestTracksResult(restTracks);
     }
 
-    private List<RestTrack> getRestTracks(Integer playlistId) {
+    private List<RestTrack> getRestTracks(ObjectId playlistId) {
         List<Track> tracks = tracksManager.getTracksInPlaylist(playlistId);
         return tracks.stream().map(restTrackMapper::toRest).collect(Collectors.toList());
     }

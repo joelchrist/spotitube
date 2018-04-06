@@ -1,27 +1,33 @@
 package nl.joelchrist.spotitube.playlisttracks.domain;
 
-public class PlaylistTrack {
-    private Integer trackId;
-    private Integer playlistId;
+import org.bson.types.ObjectId;
 
-    public PlaylistTrack(Integer trackId, Integer playlistId) {
+public class PlaylistTrack {
+    private ObjectId trackId;
+    private ObjectId playlistId;
+
+    public PlaylistTrack(ObjectId trackId, ObjectId playlistId) {
         this.trackId = trackId;
         this.playlistId = playlistId;
     }
 
-    public Integer getTrackId() {
+    public PlaylistTrack() {
+
+    }
+
+    public ObjectId getTrackId() {
         return trackId;
     }
 
-    public void setTrackId(Integer trackId) {
+    public void setTrackId(ObjectId trackId) {
         this.trackId = trackId;
     }
 
-    public Integer getPlaylistId() {
+    public ObjectId getPlaylistId() {
         return playlistId;
     }
 
-    public void setPlaylistId(Integer playlistId) {
+    public void setPlaylistId(ObjectId playlistId) {
         this.playlistId = playlistId;
     }
 }

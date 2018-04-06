@@ -1,10 +1,11 @@
 package nl.joelchrist.spotitube.tracks.rest;
 
 public class TrackRequest {
-    private Integer id;
+    private String id;
+
     private Boolean offlineAvailable;
 
-    public TrackRequest(Integer id, Boolean offlineAvailable) {
+    public TrackRequest(String id, Boolean offlineAvailable) {
         this.id = id;
         this.offlineAvailable = offlineAvailable;
     }
@@ -12,11 +13,11 @@ public class TrackRequest {
     public TrackRequest() {
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

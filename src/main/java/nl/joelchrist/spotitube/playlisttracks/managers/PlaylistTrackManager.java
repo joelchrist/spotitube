@@ -2,6 +2,7 @@ package nl.joelchrist.spotitube.playlisttracks.managers;
 
 import nl.joelchrist.spotitube.playlisttracks.repositories.PlaylistTrackRepository;
 import nl.joelchrist.spotitube.playlisttracks.domain.PlaylistTrack;
+import org.bson.types.ObjectId;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -15,12 +16,12 @@ public class PlaylistTrackManager {
         return playlistTrackRepository.findAll();
     }
 
-    public List<PlaylistTrack> getPlaylistTracksByPlaylistId(Integer playlistId) {
+    public List<PlaylistTrack> getPlaylistTracksByPlaylistId(ObjectId playlistId) {
         return playlistTrackRepository.findByPlaylistId(playlistId);
     }
 
 
-    public void removeTrackFromPlaylist(Integer playlistId, Integer trackId) {
+    public void removeTrackFromPlaylist(ObjectId playlistId, ObjectId trackId) {
         playlistTrackRepository.removeTrackFromPlaylist(playlistId, trackId);
     }
 

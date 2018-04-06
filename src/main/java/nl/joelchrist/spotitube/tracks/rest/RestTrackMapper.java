@@ -9,7 +9,7 @@ public class RestTrackMapper implements RestMapper<RestTrack, Track> {
     @Override
     public RestTrack toRest(Track nonRest) {
         return new RestTrack(
-                nonRest.getId(),
+                nonRest.getId().toHexString(),
                 nonRest.getTitle(),
                 nonRest.getPerformer(),
                 nonRest.getDuration(),
@@ -23,6 +23,7 @@ public class RestTrackMapper implements RestMapper<RestTrack, Track> {
 
     @Override
     public Track fromRest(RestTrack rest) {
+        // noop
         return new Track();
     }
 }

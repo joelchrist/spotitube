@@ -11,6 +11,11 @@ services:
     volumes:
       - "./mysql_data:/var/lib/mysql"
       - "./init-scripts/:/docker-entrypoint-initdb.d"
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
   tomee:
     image: tomee
     restart: always

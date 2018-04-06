@@ -1,10 +1,12 @@
 package nl.joelchrist.spotitube.tracks.rest;
 
 
+import org.bson.types.ObjectId;
+
 import java.sql.Date;
 
 public class RestTrack {
-    private Integer id;
+    private String id;
     private String title;
     private String performer;
     private Integer duration;
@@ -14,7 +16,7 @@ public class RestTrack {
     private String description;
     private Boolean offlineAvailable;
 
-    public RestTrack(Integer id, String title, String performer, Integer duration, String album, Integer playCount, String publicationDate, String description, Boolean offlineAvailable) {
+    public RestTrack(String id, String title, String performer, Integer duration, String album, Integer playCount, String publicationDate, String description, Boolean offlineAvailable) {
         this.id = id;
         this.title = title;
         this.performer = performer;
@@ -26,11 +28,11 @@ public class RestTrack {
         this.offlineAvailable = offlineAvailable;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

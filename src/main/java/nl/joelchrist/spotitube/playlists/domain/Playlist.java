@@ -1,11 +1,12 @@
 package nl.joelchrist.spotitube.playlists.domain;
 
+import nl.joelchrist.spotitube.dao.domain.Document;
 import nl.joelchrist.spotitube.tracks.domain.Track;
+import org.bson.types.ObjectId;
 
 import java.util.List;
 
-public class Playlist {
-    private Integer id;
+public class Playlist extends Document{
     private String name;
     private String owner;
     private List<Track> tracks;
@@ -13,19 +14,11 @@ public class Playlist {
     public Playlist() {
     }
 
-    public Playlist(Integer id, String name, String owner, List<Track> tracks) {
-        this.id = id;
+    public Playlist(ObjectId id, String name, String owner, List<Track> tracks) {
+        setId(id);
         this.name = name;
         this.owner = owner;
         this.tracks = tracks;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {

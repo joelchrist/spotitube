@@ -1,9 +1,11 @@
 package nl.joelchrist.spotitube.tracks.domain;
 
+import nl.joelchrist.spotitube.dao.domain.Document;
+import org.bson.types.ObjectId;
+
 import java.util.Date;
 
-public class Track {
-    private Integer id;
+public class Track extends Document {
     private String title;
     private String performer;
     private Integer duration;
@@ -16,8 +18,8 @@ public class Track {
     public Track() {
     }
 
-    public Track(Integer id, String title, String performer, Integer duration, String album, Integer playCount, Date publicationDate, String description, Boolean offlineAvailable) {
-        this.id = id;
+    public Track(ObjectId id, String title, String performer, Integer duration, String album, Integer playCount, Date publicationDate, String description, Boolean offlineAvailable) {
+        setId(id);
         this.title = title;
         this.performer = performer;
         this.duration = duration;
@@ -26,14 +28,6 @@ public class Track {
         this.publicationDate = publicationDate;
         this.description = description;
         this.offlineAvailable = offlineAvailable;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getTitle() {

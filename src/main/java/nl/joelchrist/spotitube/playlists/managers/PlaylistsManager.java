@@ -2,6 +2,7 @@ package nl.joelchrist.spotitube.playlists.managers;
 
 import nl.joelchrist.spotitube.playlists.domain.Playlist;
 import nl.joelchrist.spotitube.playlists.repositories.PlaylistsRepository;
+import org.bson.types.ObjectId;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -14,7 +15,7 @@ public class PlaylistsManager {
         return playlistsRepository.findAll();
     }
 
-    public void deletePlaylist(Integer playlistId) {
+    public void deletePlaylist(ObjectId playlistId) {
         playlistsRepository.deletePlaylist(playlistId);
     }
 
@@ -22,7 +23,7 @@ public class PlaylistsManager {
         playlistsRepository.addPlaylist(playlist);
     }
 
-    public void updateName(Integer playlistId, String name) {
+    public void updateName(ObjectId playlistId, String name) {
         playlistsRepository.updateName(playlistId, name);
     }
 }
